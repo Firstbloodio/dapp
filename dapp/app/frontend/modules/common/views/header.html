@@ -1,0 +1,24 @@
+<header id="box-header">
+    <h1 id="logo"><a ng-click="currentUser.userDetails.isPlayer ? redirect('home'): redirect('witness')" title=""></a></h1>
+    <ul class="list-topUser" ng-init="showNotification = false; ">
+        <li><a class="link-notification" ng-click="showNotification=!showNotification; readNotification()" title=""><span ng-if="unreadCount > 0">{{unreadCount}}</span></a>
+            <div class="box-notificationMenu" ng-class="{'show':  showNotification}">
+                <h4>Notifications</h4>
+                <div class="box-notification">
+                    <div class="box-notiMenuScroll box-scroll">
+                        <ul class="list-notification" ng-if="notifications.length > 0">
+                            <li  ng-repeat="notification in notifications | limitTo : 3">
+                                <a class="link-notificationPara" ng-click="openTransaction(notification.transactionHash)" ng-bind-html="notification.message" ng-if="notification.type !='JuryNeeded' && notification.type !='Rescue' "> </a>
+                                <a class="link-notificationPara"  ng-bind-html="notification.message"  ng-if="notification.type =='JuryNeeded' || notification.type =='Rescue' " ng-click="redirectWithParams('challengeStatus', {address:notification.address})" ng-bind-html="notification.message"> </a>                               
+                            </li>
+                        </ul>
+                        <p class="noti-no-available" ng-if="notifications.length == 0">No notification available.</p>
+                    </div>
+                </div>
+                <a class="link-seeAllNoti" ng-click="redirect('notification')" ng-if="notifications.length > 3">See all notifications</a>
+            </div>
+        </li>
+        <li><a class="link-profile" ng-click="" title="" data-toggle="modal" data-target="#profile"><span style="background-image:url('{{(currentUser.playerInfo.avatarIcon) ? currentUser.playerInfo.avatarIcon : currentUser.witnessInfo.avatarIcon}}');"></span><em class="overflowTxt-ellipsis align-self-center">{{(currentUser.userLoginDetails.playerName) ? currentUser.userLoginDetails.playerName : currentUser.userLoginDetails.steamId }}</em></a></li>
+    </ul>
+</header>
+

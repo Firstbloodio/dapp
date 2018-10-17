@@ -1,0 +1,21 @@
+<div class="box-modal modal fade" id="other_profile" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowBlue">
+            <div class="modal-header">
+                <h5 class="modal-title modal-logo" style="background-image:url('assets/images/logo-beta.png');"></h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-profile">
+                    <figure class="box-profileImg" style="background-image:url('{{(otherUserProfile.image) ? otherUserProfile.image : 'assets/images/img-oponent.jpg'}}');"></figure>
+                    <span class="box-profileName">{{otherUserProfile.player}}</span>
+                </div>
+                <ul class="list-profileDetail">
+                    <li class="link-blueTxt"><span>Reputation score</span> <em>{{otherUserProfile.reputation}}</em></li>
+                    <li><span>Total Matches</span> <em>{{otherUserProfile.totalChallenges}}</em></li>
+                    <li class="link-redTxt"><span>Witness penalty</span> <em>{{otherUserProfile.witnessPenalty}}</em></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,10 @@
+<aside id="box-leftSec">
+    <ul class="list-navbar">
+        <li><a class="link-gameList"  style="background:url('assets/images/icon-game1.png') no-repeat center center;" ng-click="currentUser.userDetails.isPlayer ? redirect('home'): redirect('witness')"></a></li>
+        <li ng-if="currentUser.userDetails.isPlayer"><a class="link-play" ng-click="redirect('challenge')" ng-class="{'active':  $state.current.name == 'challenge'}"></a></li>
+        <li ng-if="currentUser.userDetails.isWitness"><a class="link-witness" ng-click="redirect('witness')" ng-class="{'active':  $state.current.name == 'witness'}"></a></li>
+        <li><a class="link-logout" data-keyboard="true" data-toggle="modal" data-target="#logout"></a></li>
+    </ul>
+    <span class="txt-version txt-synced">Synced blocks<em>{{blockrange.minBlock}} - {{blockrange.maxBlock}}</em></span>
+    <span class="txt-version">Version 1.0.0</span>
+</aside>

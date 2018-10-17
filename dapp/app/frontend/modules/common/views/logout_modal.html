@@ -1,0 +1,23 @@
+<div class="box-modal modal fade" id="logout" tabindex="-1" aria-hidden="true" role="dialog">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title modal-logo"><img class="logo"/></h5>
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>Are you sure you want to clear all application data and logout?</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-green">No</button>
+        <button type="button" class="btn btn-red" data-dismiss="modal" aria-label="Close" ng-click="logout();">Yes</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style type="text/css" >
+    .logo{
+       content:url("assets/images/logo-beta.png");
+    }
+</style>

@@ -1,0 +1,98 @@
+<article class="box-wapper">
+    <headers></headers>
+    <section id="box-wapperInn">
+        <left-side-menu></left-side-menu>
+        <aside id="box-midSec">
+            <div class="box-midSecInn">
+                <div class="box-leaderboard box-accountJobs">
+                    <div class="row row-accountJobs">
+                        <div class="col-8 col-accountJobsLeft">
+                            <h4>Account Log</h4>
+                            <div class="table-main table-game table-common">
+                                <div class="row table-header">
+                                    <div class="col-3">Event</div>
+                                    <div class="col-3">Time</div>
+                                    <div class="col-3">Amount</div>
+                                    <div class="col-3">Balance</div>
+                                </div>
+                                <div class="table-body box-scroll">
+                                    <div >
+                                    <div class="box-noRecordFound" ng-if="accountLogs.length < 1 "> {{CONSTANTS.noRecordFound}}</div>
+                                   </div> 
+                                    <div class="row" ng-repeat="log in accountLogs">
+                                        <div class="col-3"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(log.transactionHash)">{{log.event}}</a></div>
+                                        <div class="col-3">{{log.date | date : 'MM/dd/yyyy - h:mm a'}}</div>
+                                        <div class="col-3">{{log.amount}}</div>
+                                        <div class="col-3">{{log.balance}}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4 col-accountJobsRight">
+                            <h4>Transactions</h4>
+                            <div class="box-transaction">
+                                <div class="box-currentBal">
+                                    <div class="box-payDecideAmount">
+                                        <span>Current Balance</span>
+                                        <input type="text" readonly="" value="{{balance}}">
+                                    </div>
+                                </div>
+                                <div class="box-createChallengerAmt">
+                                    <em class="d-flex align-self-center">Enter Amount</em>
+                                    <input class="input-amount" type="text" name="transactionAmt" ng-model="transactionAmt" only-digits placeholder="Enter amount">
+                                </div>
+                                <ul class="list-btnDepositWithdraw">
+                                    <li><a class="link-navBlueButton" ng-click=" transactionAmt > 0 && transaction('deposit'); depositEnable = !depositEnable" ng-class="{'custom-active': (transactionAmt > 0 && depositEnable)}" >Deposit</a></li>
+                                    <li><a class="link-navBlueButton" ng-click=" balance >= transactionAmt && transactionAmt > 0 && transaction('withdraw'); withdrawEnable = !withdrawEnable" ng-class="{'custom-active': (balance >= transactionAmt && transactionAmt > 0 && withdrawEnable)}">Withdraw</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-midSecInn">
+                <div class="box-games">
+                    <h4>My jobs</h4>
+                    <div class="table-main table-game table-common table-pendCom">
+                        <div class="row table-header">
+                            <div class="col-3">Status</div>
+                            <div class="col-3">Job</div>
+                            <div class="col-3">Amount</div>
+                            <div class="col-3">Transaction</div>
+                        </div>
+                        
+                        <div class="table-body box-scroll my_jobs_scroll">
+                           <div ng-if="accountStatus.length < 1 ">
+                               
+                           <div class="box-noRecordFound" > 
+                            <div > {{CONSTANTS.noRecordFound}}</div>
+                            </div>
+                           </div>
+                            <div  ng-repeat="status in accountStatus" class="row" ng-class="{'row-complete' : status.status=='Finished', 'row-pending': status.status!='Finished'}">
+                                <div class="col-3" ng-click="jobSatatus(status.address)"  ng-if="status.status == 'Pending'"><a >Pending</a></div>
+                                <div class="col-3" ng-click="jobSatatus(status.address)" ng-if="status.status == 'In Progress'"><a >Finished</a></div>
+                                <div class="col-3" ng-click="jobSatatus(status.address)" ng-if="status.status == 'Finished'"><a >Paid</a></div>
+                                <div class="col-3"><a >{{status.job}}</a></div>
+                                <div class="col-3">{{(status.amount)? status.amount : 'N/A'}}</div>
+                                <div class="col-3"><a ng-click="openTransaction(status.transactionHash)">{{status.transactionHash}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>                
+            </div>
+        </aside>
+        <aside id="box-rightSec">
+            <div class="box-findMatchSec box-requestJuryMain">
+                <ul class="list-findMatch">
+                    <li>
+                        <a class="link-navBlueButton" ng-click="openlink('https://github.com/Firstbloodio/dapp')"><span class="icon-info">Need Help</span></a>
+                        <a class="link-borderShow" ng-click="openlink('http://firstblood.io/')">Launch firstblood online</a>
+                        <a class="link-borderShow" ng-click="openlink('https://store.steampowered.com')">Launch steam</a>
+                        <a class="link-borderShow" ng-click="openMetamask('open-metamask-popup')">Open Metamask</a>
+                    </li>
+                </ul>
+            </div>            
+        </aside>
+    </section>
+        <footer class="box-footer"></footer>
+</article>

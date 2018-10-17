@@ -1,0 +1,74 @@
+<html ng-app="app">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>:: FIRSTBLOOD ::</title>
+    <!--[if lt IE 9]>
+    <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <script src="http://css3-mediaqueries-js.googlecode.com/svn/trunk/css3-mediaqueries.js"></script>
+    <![endif]-->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700,800" rel="stylesheet">
+    <link href="assets/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/jquery.mCustomScrollbar.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/default.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/developer.css" rel="stylesheet" type="text/css" />
+    <script src="assets/js/jquery.min.js"></script>
+    
+    <link rel="stylesheet" href="bower_components/angular-material/angular-material.css" />
+    <link rel="stylesheet" href="bower_components/AngularJS-Toaster/toaster.min.css" />
+
+
+    <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
+    <script src="bower_components/angular-aria/angular-aria.js"></script>
+    <script src="bower_components/angular-material/angular-material.js"></script>
+    <script src="bower_components/angular-messages/angular-messages.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
+    <script src="bower_components/AngularJS-Toaster/toaster.min.js"></script>
+    <script src="app.js"></script>
+    
+    <script src="modules/configuration/index.js"></script>
+    <script src="modules/configuration/controllers/configurationController.js"></script>
+
+    <script src="modules/challenge/index.js"></script>
+    <script src="modules/challenge/controllers/challengeController.js"></script>
+
+    <script src="modules/home/index.js"></script>
+    <script src="modules/home/controllers/homeController.js"></script>
+
+    <script src="modules/witness/index.js"></script>
+    <script src="modules/witness/controllers/witnessController.js"></script>
+
+    <script src="modules/notification/index.js"></script>
+    <script src="modules/notification/controllers/notificationController.js"></script>
+
+    <script src="modules/common/index.js"></script>
+    <script src="modules/common/services/common.service.js"></script>
+    <script src="modules/common/constants/common.constant.js"></script>
+    <script src="modules/common/directives/common.directive.js"></script>
+    <script src="modules/common/filters/common.filter.js"></script>
+
+    <script src="modules/challenge_status/index.js"></script>
+    <script src="modules/challenge_status/controllers/challengeStatusController.js"></script>
+</head>
+<body>
+<div ng-controller="MainController">
+    <div  ui-view></div>
+    <user-profile-modal></user-profile-modal>
+    <other-user-profile-modal></other-user-profile-modal>
+    <logout-modal></logout-modal>
+    <processing-modal></processing-modal>
+    <init-modal></init-modal>
+    <div id="loading" ng-class="{'show' : isLoading, 'hide': !isLoading}">
+      <span id="loading-image"></span>
+    </div>
+    <toaster-container></toaster-container>
+</div>
+
+<script type="text/javascript" language="javascript" src="assets/js/bootstrap.min.js"></script>
+<script type="text/javascript" language="javascript" src="assets/js/jquery.mCustomScrollbar.concat.min.js"></script>
+<script type="text/javascript" language="javascript" src="assets/js/custom.js"></script>
+</body>
+</html>

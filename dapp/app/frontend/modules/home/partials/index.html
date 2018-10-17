@@ -1,0 +1,180 @@
+<style type="text/css">
+#fixed {
+    height: 400px;
+    overflow: auto;
+}
+</style>
+<article class="box-wapper">
+    <headers></headers>
+    <section id="box-wapperInn">
+        <left-side-menu></left-side-menu>
+        <aside id="box-midSec">
+            <div class="box-midSecInn">
+                <div class="box-games">
+                    <h4>Games</h4>
+                    <div class="games-checkbox">
+                        <div class="col-8">
+                            <label class="game-check">
+                                <input type="checkbox" ng-model="filter.myGameOnly" ng-change="filteredGameLIst()">
+                                <em class="labelchk">My Gams only</em>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="game-check">
+                                <input type="checkbox" ng-model="filter.open" ng-change="filteredGameLIst()">
+                                <em class="labelchk">Open</em>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="game-check">
+                                <input type="checkbox" ng-model="filter.inProgess" ng-change="filteredGameLIst()">
+                                <em class="labelchk">In progress</em>
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="game-check">
+                                <input type="checkbox" ng-model="filter.finished" ng-change="filteredGameLIst()">
+                                <em class="labelchk">Finished</em>
+                                <span class="checkmark"></span>
+                            </label>
+                        </div>
+                        <div class="col-4 reput-dropdown">
+                            <span>Reputation</span>
+                            <form class="reput-select">
+                                <input ng-keyup="filteredGameLIst()" class="reput-input" type="text" name="quantity" ng-model="filter.reputation" min="0" ng-disabled="filter.myGameOnly" only-digits placeholder="0">
+                            </form>
+                        </div>
+                    </div>
+                    <div class="table-main table-game">
+                        <div class="row table-header">
+                            <div class="col-3 col-compare-1">Status</div>
+                            <div class="col-3 col-compare-2">Players</div>
+                            <div class="col-2">Game</div>
+                            <div class="col-2">Amount</div>
+                            <div class="col-2">Outcome</div>
+                        </div>
+                        <div class="table-body box-scroll gameScroll">
+                            <div ng-if="!appConfigureModal">
+                              <div class="box-noRecordFound" ng-if="games.length < 1 && !tableLoader">{{CONSTANTS.noRecordFound}}</div>       
+                            </div>
+                            
+                            <div class="row" data-ng-repeat="game in games" ng-class="{'gameProgress-waiting' : (game.event | gameStatus).toString() == 'Open Challenge', 'gameProgress-ongoing': (game.event | gameStatus).toString() == 'Ongoing Challenge' }">
+                                <div class="col-3 col-compare-1"><a class="link-whiteBlue overflowTxt-ellipsis" style="cursor: pointer" ng-click="redirectWithParams('challengeStatus', {address:game.address})">{{ game.event | gameStatus}}</a></div>
+                                <div class="col-3 col-compare-2"><a style="min-width: 55px;cursor: pointer;" class="link-whiteBlue link-vs" ng-click="showOtherUserModal(game.key1)">{{game.key1}}</a> <span class="box-vs">vs</span> <em style="cursor: pointer;" class=" link-vs" ng-class="{'link-whiteBlue' : (game.key2),'box-vsWaiting': !(game.key2)}" ng-click=" game.key2 && showOtherUserModal(game.key2)">{{ (game.key2) ? game.key2 : 'waiting...' }}</em></div>
+                                <div class="col-2"><i class="overflowTxt-ellipsis">Dota 2</i></div>
+                                <div class="col-2">{{game.amount}}</div>
+                                <div class="col-2" ng-if="game.event != 'Resolve'"><i class="overflowTxt-ellipsis">{{game.event | gameOutcome}}</i></div>
+                                <div class="col-2" ng-if="game.event == 'Resolve'"><i class="overflowTxt-ellipsis">{{(game.winner == 1 ) ? ' Win' : 'Loss'}}</i></div>
+                            </div>
+                        </div>
+                        <div id="loading" class="table-loading" ng-class="{'show' : tableLoader, 'hide': !tableLoader}">
+                          <span id="loading-image"></span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-midSecInn">
+                <div class="box-leaderboard">
+                    <h4>Leaderboard</h4>
+                    <ul class="list-leaderBoard nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item">
+                            <a class="nav-link " ng-class="{'active' : orderBy == 'winRate'}" ng-click="LeaderboardOrderBy('winRate')">Win rate</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link " ng-class="{'active' : orderBy == 'wins'}" ng-click="LeaderboardOrderBy('wins')">Total win</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{'active' : orderBy == 'winStreak'}" ng-click="LeaderboardOrderBy('winStreak')">Win streaks</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" ng-class="{'active' : orderBy == 'mmr'}" ng-click="LeaderboardOrderBy('mmr')">Mmr</a>
+                        </li>
+                    </ul>
+                    <div class="tab-content" id="myTabContent">
+                        <div class="tab-pane fade show active" id="winRate">
+                            <div class="table-main table-game table-leaderboard">
+                                <div class="row table-header">
+                                    <div class="col-3">Players</div>
+                                    <div class="col-2">Wins</div>
+                                    <div class="col-2">Losses</div>
+                                    <div class="col-1">Mmr</div>
+                                    <div class="col-2">Win Streaks</div>
+                                    <div class="col-2">Win Rate</div>
+                                </div>
+                                <div class="table-body">
+                                    <div class="box-scroll leaderboardScroll">
+                                        <div ng-if="!appConfigureModal">
+                                            <div class="box-noRecordFound" ng-if="leaderboard.length < 1 && !leaderLoader">{{CONSTANTS.noRecordFound}}</div>
+                                        </div>    
+                                            <div class="row" ng-repeat="lb in leaderboard ">
+                                                <div class="col-3"><span class="table-countNum">{{$index+1}}</span> <a class="link-whiteBlue overflowTxt-ellipsis" ng-click="showOtherUserModal(lb.player)">{{lb.player}}</a></div>
+                                                <div class="col-2">{{lb.wins}}</div>
+                                                <div class="col-2">{{lb.losses}}</div>
+                                                <div class="col-1">{{lb.mmr | number : 2}}</div>
+                                                <div class="col-2">{{lb.winStreak}}</div>
+                                                <div class="col-2" ng-if="lb.winRate != 0">{{lb.winRate | number : 2}}</div>
+                                                <div class="col-2" ng-if="lb.winRate == 0">N/A</div>
+                                            </div>
+                                        <div id="loading"  class="table-loading" ng-class="{'show' : leaderLoader, 'hide': !leaderLoader}">
+                                            <span id="loading-image"></span>
+                                        </div> 
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </aside>
+        <aside id="box-rightSec">
+            <div class="box-findMatchSec">
+                <ul class="list-findMatch">
+                    <li><a class="link-blueButton" ng-click="findMatch()">Find a match</a></li>
+                    <li>
+                        <a class="link-navBlueButton" ng-click="openlink('https://github.com/Firstbloodio/dapp')"><span class="icon-info">Need Help</span></a>
+                        <a class="link-borderShow" ng-click="openlink('http://firstblood.io/')">Launch firstblood online</a>
+                        <a class="link-borderShow" ng-click="openlink('https://store.steampowered.com')">Launch steam</a>
+                        <a class="link-borderShow" ng-click="openMetamask('open-metamask-popup')">Open Metamask</a>
+                    </li>
+                </ul>
+                <div class="box-myJobs" ng-if="currentUser.userDetails.isWitness">
+                    <h5>My Jobs</h5>
+                    <div class="table-main table-myJobs">
+                        <div class="row table-header">
+                            <div class="table-headerInn">
+                                <div class="col-7">Status</div>
+                                <div class="col-5">Job</div>
+                            </div>
+                        </div>
+                        <div class="table-body table-myJobsBody box-scroll my_jobs_scroll">
+                       <div ng-if="!appConfigureModal && accountStatus.length < 1">
+                           <div class="box-noRecordFound" >
+                            <div > {{CONSTANTS.noRecordFound}}</div>
+                         </div> 
+                       </div>
+                          
+                            <div  ng-repeat="status in accountStatus" class="row" ng-class="{'row-pending' : (status.status == 'Pending') || (status.status == 'In Progress'), 'row-complete': status.status == 'Finished'}">
+                               <div class="col-7" ng-click="jobSatatus(status.address)"  ng-if="status.status == 'Pending'"><a >Pending</a></div>
+                                <div class="col-7" ng-click="jobSatatus(status.address)" ng-if="status.status == 'In Progress'"><a >Finished</a></div>
+                                <div class="col-7" ng-click="jobSatatus(status.address)" ng-if="status.status == 'Finished'"><a >Paid</a></div>
+                                <div class="col-5"><a ng-click="">{{status.job}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </section>
+        <footer class="box-footer"></footer>
+</article>
+<div class="box-modal modal fade" id="Info" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <h4>No game available.</h4>
+            </div>
+            <div class="modal-footer">
+                <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-green">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

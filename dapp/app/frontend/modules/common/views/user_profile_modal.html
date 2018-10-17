@@ -1,0 +1,23 @@
+<div class="box-modal modal fade" id="profile" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowBlue">
+            <div class="modal-header">
+                <h5 class="modal-title modal-logo" style="background-image:url('assets/images/logo-beta.png');"></h5>
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-profile">
+                    <figure class="box-profileImg" style="background-image:url('{{(currentUser.playerInfo.avatarIcon) ? currentUser.playerInfo.avatarIcon : currentUser.witnessInfo.avatarIcon}}');"></figure>
+                    
+                    <span class="box-profileName">{{(currentUser.userLoginDetails.playerName) ? currentUser.userLoginDetails.playerName : currentUser.userLoginDetails.steamId }}</span>
+                </div>
+                <ul class="list-profileDetail">
+                    <li ng-if="currentUser.userDetails.isPlayer" class="link-blueTxt"><span>Reputation score</span> <em>{{userProfile[0].reputation}}</em></li>
+                    <li ng-if="currentUser.userDetails.isPlayer"><span>Total Matches</span> <em>{{userProfile[0].totalChallenges}}</em></li>
+                    <li ng-if="currentUser.userDetails.isWitness && !currentUser.userDetails.isPlayer"><span>Witness job</span> <em>{{witnessJobCount}}</em></li>
+                    <li ng-if="currentUser.userDetails.isWitness && !currentUser.userDetails.isPlayer" class="link-redTxt"><span>Witness penalty</span> <em>{{witnessPenaltyCount}}</em></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>

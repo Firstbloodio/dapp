@@ -1,0 +1,135 @@
+<article class="box-wapper">
+	<headers></headers>
+    <section id="box-wapperInn">
+        <left-side-menu></left-side-menu>
+        <aside id="box-midSec">
+            <div class="box-midSecInn box-fullHeight">
+                <div class="box-games">
+                    <h4>Notifications</h4>
+                    <div class="box-notification box-scroll">
+                        <ul class="list-notification">
+                            <li ng-repeat="notification in allNotifications">
+                                <a class="link-notificationPara" ng-click="openTransaction(notification.transactionHash)" ng-bind-html="notification.message" ng-if="notification.type !='JuryNeeded' && notification.type !='Rescue' "></a>
+                                
+                                <a class="link-notificationPara" ng-if="notification.type =='JuryNeeded' || notification.type =='Rescue' " ng-click="redirectWithParams('challengeStatus', {address:notification.address})" ng-bind-html="notification.message"></a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>                
+            </div>
+        </aside>
+        <aside id="box-rightSec">
+            <div class="box-findMatchSec">
+                <ul class="list-findMatch">
+                    <li><a class="link-blueButton" ng-click="findMatch()">Find a match</a></li>
+                    <li>
+                        <a class="link-navBlueButton" ng-click="openlink('https://github.com/Firstbloodio/dapp')"><span class="icon-info">Need Help</span></a>
+                        <a class="link-borderShow" ng-click="openlink('http://firstblood.io/')">Launch firstblood online</a>
+                        <a class="link-borderShow" ng-click="openlink('https://store.steampowered.com')">Launch steam</a>
+                        <a class="link-borderShow" ng-click="openMetamask('open-metamask-popup')">Open Metamask</a>
+                    </li>
+                </ul>
+                <div class="box-myJobs hide">
+                    <h5>My Jobs</h5>
+                    <div class="table-main table-myJobs">
+                        <div class="row table-header">
+                            <div class="table-headerInn">
+                                <div class="col-7">Status</div>
+                                <div class="col-5">Job</div>
+                            </div>
+                        </div>
+                        <div class="table-body table-myJobsBody box-scroll">
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                            <div class="row row-pending">
+                                <div class="col-7"><a href="javascript:;">Pending</a></div>
+                                <div class="col-5"><a href="javascript:;">Witness</a></div>
+                            </div>
+                            <div class="row row-complete">
+                                <div class="col-7"><a href="javascript:;">Complete</a></div>
+                                <div class="col-5"><a href="javascript:;">Jhon Due</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>            
+        </aside>
+    </section>
+        <footer class="box-footer"></footer>
+</article>
+
+<div class="box-modal modal fade" id="Info">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <div class="modal-header">
+        <!-- <h5 class="modal-title"><img src="images/logo-beta.png" title="" alt=""></h5> -->
+        <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+      </div>
+      <div class="modal-body">
+        <h4>No player found.</h4>
+      </div>
+      <div class="modal-footer">
+        <button type="button" data-dismiss="modal" aria-label="Close" class="btn btn-green">OK</button>
+        <!-- <button type="button" class="btn btn-red" data-dismiss="modal" aria-label="Close" ng-click="logout();">Yes</button> -->
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,252 @@
+<style type="text/css" >
+    .logo{
+       content:url("assets/images/logo-beta.png");
+    }
+</style>
+<div class="box-login">
+    <form id="login-form" name="loginForm" novalidate=""  ng-submit="login(loginData)">
+        <h1 id="logo-login"><img class="logo"/></h1>
+
+        <p class="config-errors">{{loginError}}</p>
+        <p class="config-errors">{{ errors[0] }} </p>
+        <div class="input-mainGroup">
+            <label>Player Account</label>
+            <div class="input-leftImg">
+                <span></span>
+                <input type="text" placeholder="Steam username (PLAYER)"  name="playerName" id="playerName" ng-model="loginData.playerName">
+                <em class="icon-queMark" data-toggle="modal" data-target="#playerTooltip">?</em>
+            </div>
+            <div class="input-leftImg">
+                <span class="icon-referrer"></span>
+                <input ng-keyup="removeSpace(loginData.referrerEthereumAddress)" type="text" placeholder="Referrer Ethereum Address" name="referrerEthereumAddress" ng-model="loginData.referrerEthereumAddress">
+                <em class="icon-queMark" data-toggle="modal" data-target="#referrerEthereumAddressTooltip">?</em>
+            </div>
+        </div>
+        <div class="input-mainGroup">
+            <label>Witness Account</label>
+            <div class="input-leftImg">
+                <span class="icon-key"></span>
+                <input type="text" placeholder="Ethereum Private Key" name="ethereumPrivateKey" class="witnessInput" ng-model="loginData.ethereumPrivateKey" ng-required="( (loginData.steamId) || (loginData.witnessName) || (loginData.steamPassword) )">
+                <em class="icon-queMark" data-toggle="modal" data-target="#ethereumPrivateKeyTooltip">?</em>
+            </div>
+            <div class="input-leftImg">
+                <span class="icon-card"></span>
+                <input type="text" placeholder="Steam username (Witness/Juror)" name="steamId" class="witnessInput" ng-model="loginData.steamId"  ng-required="( (loginData.ethereumPrivateKey) || (loginData.witnessName) || (loginData.steamPassword) )">
+                <em class="icon-queMark" data-toggle="modal" data-target="#steamIDTooltip">?</em>
+            </div>
+            <div class="input-leftImg">
+                <span></span>
+                <input type="text" placeholder="Username (Witness/Juror)" name="witnessName" class="witnessInput" id="witnessName" ng-model="loginData.witnessName"  ng-required="( (loginData.steamId) || (loginData.ethereumPrivateKey) || (loginData.steamPassword) )">
+                <em class="icon-queMark" data-toggle="modal" data-target="#userNameTooltip">?</em>
+            </div>
+            <div class="input-leftImg">
+                <span class="icon-lock"></span>
+                <input type="password" placeholder="Steam Password" name="steamPassword" class="witnessInput" ng-model="loginData.steamPassword"  ng-required="( (loginData.steamId) || (loginData.witnessName) || (loginData.ethereumPrivateKey) )">
+                <em class="icon-queMark" data-toggle="modal" data-target="#steamPasswordTooltip">?</em>
+            </div>
+            <div class="txt-disclaimer">
+
+              <p><strong>FirstBlood Dapp Disclaimers</strong></p>
+
+              <p>FirstBlood® Dapp is a decentralized esports gaming platform that allows individuals to test their skills, compete in popular esport online games ("<strong>esport Games</strong>"), initially DOTA 2<sup>1</sup>, and have a stake on the outcome of a game. FirstBlood® Dapp is free, public, open source software and a set of smart contracts that are deployed to the Ethereum blockchain (collectively, the "<strong>FirstBlood Dapp Platform</strong>"). Before using the FirstBlood Dapp Platform, please review the <a style="color: #16a5ff; text-decoration: underline;" ng-click="openlink('https://github.com/Firstbloodio/dapp/blob/master/docs/faq.md')">FAQs</a> for an explanation on how the FirstBlood Dapp Platform works, including how it may be used for playing challenges, witnessing and hosting challenges, acting as a juror, and claiming rewards as a referrer.</p>
+
+              <p>FirstBlood Technologies, Inc. ("<strong>FirstBlood Technologies</strong>") does not control the FirstBlood Dapp Platform, but rather may support, develop and maintain the free, open-source protocol that is FirstBlood Dapp. The FirstBlood Dapp is made available under the MIT open source license -- and the disclaimers contained therein apply including that the FirstBlood Dapp is provided "AS IS" and "WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED". <span style="text-decoration: underline; font-weight: bold;">You acknowledge that the FirstBlood Dapp Platform and smart contracts may not comply with their intended design, and witnesses or jurors may act in their own self-interest thwarting fair play and causing you to lose a challenge or game (and therefore the 1ST token (defined below) you provided as the challenge allocation) when in fact you should have won the challenge or game (and collected your opponent’s challenge allocation). As further explained in the [FAQs](faq.md), certain functionality in the FirstBlood Dapp is predicated upon the period of time that it takes to record a certain number of Ethereum blocks within a blockchain.  You acknowledge that you will not have recourse, and will lose the benefit of such functionality, in the event that the Ethereum blocks are recorded at faster than expected speeds or the number of blocks required to trigger the functionality are not recorded.</span> FIRSTBLOOD TECHNOLOGIES WILL NOT BE LIABLE FOR ANY LIABILITY OR DAMAGES WHATSOEVER ASSOCIATED WITH YOUR USE, INABILITY TO USE, OR YOUR INTERACTION WITH OTHER USERS OF, THE FIRSTBLOOD DAPP, FISTBLOOD DAPP PLATFORM OR ESPORT GAMES,  INCLUDING ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY OR CONSEQUENTIAL DAMAGES, LOSS OF PROFITS, 1ST TOKENS, OR DATA.</p>
+
+              <p>The use of the esport Game is governed not by the MIT license but by the subscription agreement, terms of service, privacy policy or other documents selected and identified by the publisher of such game as governing its use. FIRSTBLOOD ASSUMES NO RESPONSIBILITY FOR THE ESPORT GAME, YOUR USE OR INABILITY TO USE ANY ESPORT GAME, OR THE FUNCTIONALITY  OF ANY ESPORT GAME, INCLUDING ITS FAILURE TO FUNCTION IN COMPLIANCE WITH THE DOCUMENTATION.</p>
+
+              <p>You acknowledge that the current version of the FirstBlood Dapp Platform is a beta version and as such has not been fully-tested and may not perform as designed.  While you should always be thoughtful about the risk of losing the FirstBlood cryptocurrency token (the "**1ST token**") you provide as a challenge allocation through the FirstBlood Dapp Platform, the concerns regarding loss of these cryptocurrency tokens is particularly acute with beta software that may not perform as designed, including that the beta version of the FirstBlood Dapp Platform may not accurately reflect the intent of the smart contract or the FAQs. (For more information about the quality and accuracy of the FirstBlood Dapp, please see a report regarding a third party audit conducted on the FirstBlood Dapp smart contract codebase:
+              <a style="color: #16a5ff; text-decoration: underline;" ng-click="openlink('https://github.com/Firstbloodio/dapp/blob/master/docs/FirstBloodContractAuditReportv3.2.pdf')">https://github.com/Firstbloodio/dapp/blob/master/docs/FirstBloodContractAuditReportv3.2.pdf</a>.)
+              In connection with the use of the FirstBlood Dapp Platform, bugs, errors or other issues may occur in connection with third party technologies, like the game itself (e.g., DOTA 2) and internet connectivity, and such failures and issues may not be contemplated by the FirstBlood Dapp Platform or provide an opportunity to have 1ST tokens returned to you. Careful due diligence should be undertaken as to the amount of 1ST tokens you risk using the FirstBlood Dapp Platform in beta format with full understanding that any use of these tokens/cryptocurrencies is subject to total loss. You assume any and all risk associated with your use of the FirstBlood Dapp Platform and the use and loss of 1ST tokens or any other cryptocurrency.</p>
+
+              <p>On the FirstBlood Dapp Platform, the 1ST tokens may be used for playing matches, witnessing matches and voting on the jury, hosting tournaments, and claiming rewards from referrals, and in the future, other tokens or cryptocurrencies may be used. Although FirstBlood Technologies has not sought to list 1ST tokens on cryptocurrency exchanges, it is aware that 1ST tokens has been listed on certain exchanges and in the future it may be delisted on these exchanges and/or listed on others.  FirstBlood Technologies disavows any obligation with respect to the listing of 1ST tokens on exchanges and it disavows any responsibility with respect to the value or trading of 1ST tokens on exchanges.  Persons trading 1ST tokens or otherwise engaging in activities involving 1ST tokens on exchanges assume any and all risk, including that of total loss, associated with such activities.</p>
+
+              <p>You are solely responsible for compliance with all laws that may apply to your particular use of the FirstBlood Dapp Platform. Cryptocurrencies and blockchain technologies have been the subject of scrutiny by various regulatory bodies around the world. FirstBlood Technologies makes no representation regarding the application of any laws, including but by no means limited to those relating to gaming, gambling, options, derivatives or securities, to your use of the FirstBlood Dapp Platform. Indeed, depending on the jurisdiction and the contemplated use of the FirstBlood Dapp Platform (whether yours or another’s), that use may be illegal.  You agree that FirstBlood Technologies is not responsible for determining whether or which laws may apply to your use of the FirstBlood Dapp Platform. Users must examine their own circumstances in the context of the rules and laws of their specific jurisdiction as it may be possible to modify the FirstBlood Dapp Platform under the terms of the applicable open source license to effectuate your compliance with any applicable rules and laws.</p>
+
+              <p><sup>1</sup>A note about trademarks: FirstBlood® is a registered trademark of FirstBlood Technologies, Inc. Dota 2 is a registered trademark or trademark
+              of the Valve Corporation. FirstBlood is not affiliated with or endorsed by the Valve Corporation.</p>
+
+          </div>
+          <div class="txt-disclaimer-explanation">
+            <p>Please scroll through the FirstBlood Dapp Disclaimer to acknowledge the disclaimer.</p>
+          </div>
+          <div class="txt-agreed">
+             <input type="checkbox" name="terms" ng-model="terms" />
+             By clicking the I AGREE AND SAVE button I am agreeing to the FirstBlood App Disclaimer and providing the Player Account and Witness Account Information in order to: (a) authenticate me through the applicable esports Game API and (b) be used as contemplated by the code underlying the FirstBlood Dapp Platform, including to populate the blocks in the blockchain and effectuate payments.
+             <div>
+               <button class="btn btn-save" type="submit" title="" ng-disabled="( (loginData.playerName == '') &&  (loginData.steamId == '') ) ||  loginForm.$invalid || !terms">
+                 I agree and save
+               </button>
+             </div>
+          </div>
+          <script>
+          jQuery(($) => {
+            const element = $('.txt-disclaimer')[0];
+            element.onscroll = () => {
+              if(element.scrollTop + element.clientHeight == element.scrollHeight) {
+                $('.txt-disclaimer-explanation').hide();
+                $('.txt-agreed').show();
+              }
+            }
+          });
+          </script>
+        </div>
+    </form>
+</div>
+
+<!-- player Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="playerTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter your Steam Community URL. This will be the username that you use to play matches.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- referrer Ethereum Address Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="referrerEthereumAddressTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter the Ethereum Address of the person who told you about Firstblood.</p>
+                    </div>
+                    <div class="box-modalTextPara">
+                        <h4>Why do we need it?</h4>
+                        <p>This address will receive credit for referring you.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ethereum Private Key Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="ethereumPrivateKeyTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter the private key of the Ethereum address that you'd like to use for your Witness Account. We recommend using a designated account for your Witness Account.</p>
+                    </div>
+                    <div class="box-modalTextPara">
+                        <h4>Why do we need it?</h4>
+                        <p>Your Witness Account will be used to complete Witness Jobs in the background.  This account will be used to complete transactions.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- steam ID Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="steamIDTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter the Community URL that you'd like to use for your Witness Account.</p>
+                    </div>
+                    <div class="box-modalTextPara">
+                        <h4>Why do we need it?</h4>
+                        <p>Your Witness Account will be used to complete Witness Jobs in the background.  This account will be used to check the results of matches and open lobbies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- user Name Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="userNameTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter the Steam Username that you'd like to use for your Witness Account.  We recommend using a designated Steam Account.</p>
+                    </div>
+                    <div class="box-modalTextPara">
+                        <h4>Why do we need it?</h4>
+                        <p>Your Witness Account will be used to complete Witness Jobs in the background.  This account will be used to check the results of matches and open lobbies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- steam Password Tooltip -->
+
+<div class="box-modal modal fade box-modalText" id="steamPasswordTooltip">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara">
+                        <h4>What should I enter?</h4>
+                        <p>Enter the Steam Password that you'd like to use for your Witness Account.  We recommend using a designated Steam Account.</p>
+                    </div>
+                    <div class="box-modalTextPara">
+                        <h4>Why do we need it?</h4>
+                        <p>Your Witness Account will be used to complete Witness Jobs in the background.  This account will be used to check the results of matches and open lobbies.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!-- terms of service -->
+ <div class="box-modal modal fade box-modalText" id="termsNservice" tabindex="-1" aria-hidden="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content box-shadowWhite">
+            <div class="modal-header">
+                <button type="button" class="btn close" data-dismiss="modal" aria-label="Close">&times;</button>
+            </div>
+            <div class="modal-body">
+                <div class="box-scroll">
+                    <div class="box-modalTextPara"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+ </div>

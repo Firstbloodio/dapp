@@ -1,0 +1,39 @@
+{
+  "compilerOptions": {
+    "target": "es2017",
+    "module": "CommonJS",
+    "allowJs": false,
+    "checkJs": false,
+    "sourceMap": true,
+    "rootDir": "./",
+    "lib": [
+      "ES6",
+      "ES7",
+      "ES2017",
+      "ES2017.object",
+      "ES2015.Promise"
+    ],
+    "types": [
+      "node"
+    ],
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "strict": false,
+    "noImplicitAny": false,
+    "strictNullChecks": false,
+    "noImplicitThis": false,
+    "alwaysStrict": false,
+    "noUnusedLocals": false,
+    "noUnusedParameters": false,
+    "noImplicitReturns": false,
+    "noFallthroughCasesInSwitch": false,
+    "moduleResolution": "node"
+  },
+  "include": [
+    "./node_modules/web3-typescript-typings/index.d.ts"
+  ],
+  "exclude": [
+    "./node_modules"
+  ]
+}

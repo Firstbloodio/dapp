@@ -1,0 +1,29 @@
+{
+  "extends": "tslint-config-airbnb",
+  "lib": [
+    "es2017.object"
+  ],
+  "rules": {
+    "align": [
+      false
+    ],
+    "variable-name": [
+      true,
+      "check-format",
+      "allow-pascal-case"
+    ],
+    "max-line-length": [
+      true,
+      120
+    ],
+    "ter-arrow-parens": [
+      false
+    ],
+    "no-this-assignment": [
+      false
+    ],
+    "no-var-self": [
+      false
+    ]
+  }
+}

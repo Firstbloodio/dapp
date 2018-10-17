@@ -1,0 +1,13 @@
+{
+  "name": "FirstBlood",
+  "description": "",
+  "main": "app.js",
+  "license": "MIT",
+  "homepage": "index.html",
+  "private": true,
+  "dependencies": {
+    "angular-ui-router": "^1.0.18",
+    "angular-material": "^1.1.10",
+    "AngularJS-Toaster": "angularjs-toaster#^2.2.0"
+  }
+}

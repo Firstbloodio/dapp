@@ -1,0 +1,263 @@
+<article class="box-wapper">
+    <headers></headers>
+    <section id="box-wapperInn">
+        <left-side-menu></left-side-menu>
+        <aside id="box-midSec">
+            <div class="box-midSecInn">
+                <div class="box-leaderboard box-challengeStatus">
+                    <div class="row row-challengeStatus">
+                        <div class="col-5 col-challengeStatusLeft">
+                            <h4>Challenge Status &#58; <span>{{ (challengeStatus.event == 'Resolve' || challengeStatus.event == 'Rescue') ? 'Closed' : 'Open' }}</span>
+                                <a class="link-blueButton link-becomeHost link-acceptChal" ng-class="{'hide': challengeStatus.event == 'Finished', 'show': (challengeStatus.event != 'Finished' && challengeStatus.key1 != currentUser.userLoginDetails.playerName && !(challengeStatus.key2)  ) }" ng-click=" challengeStatus.event != 'Finished' && challengeStatus.key1 != currentUser.userLoginDetails.playerName && !(challengeStatus.key2) && openMetamaskPopup()">Accept Challenge</a>
+
+                                <a ng-if="currentUser.userDetails.isWitness && showBecomeAHost" class="link-blueButton link-becomeHost" ng-click="becomeAHost()">Become a host</a>
+                            </h4>
+
+                            <div class="box-gameChallengeStatus">
+                                <figure class="box-gameChallengeStatusImg" style="background-image:url('assets/images/icon-dota2.png');"></figure>
+                                <figure class="box-gameChallengeStatusImgTxt" style="background-image:url('assets/images/icon-dota2Text.png');"></figure>
+                                <div class="table-game table-common table-gameChallengeStatus">
+                                    <div class="row table-header">
+                                        <div class="col-5">Role</div>
+                                        <div class="col-7">Payout</div>
+                                    </div>
+                                    <div class="table-body box-scroll">
+                                        <div class="row" ng-repeat="x in [].constructor(witnessCount) track by $index" ng-if="challengeStatus.event == 'Resolve'">
+                                            <div class="col-5"><i class="overflowTxt-ellipsis">Witness #{{$index+1}} &#58;</i></div>
+                                            <div class="col-7">
+                                                <span class="text-white overflowTxt-ellipsis" ng-click="resolveTxHash &&  openTransaction(resolveTxHash)">{{(challengeStatus.event == 'Resolve') ? payoutDetails.witnessJuryAmount : 'N/A'}}</span>
+                                            </div>
+                                        </div>
+                                        <div class="row" ng-repeat="x in [].constructor(2) track by $index" ng-if="challengeStatus.event != 'Resolve'">
+                                            <div class="col-5"><i class="overflowTxt-ellipsis">Witness #{{$index+1}} &#58;</i></div>
+                                            <div class="col-7">
+                                                <span class="text-white overflowTxt-ellipsis">N/A</span>
+                                            </div>
+                                        </div>
+                                        <div class="row hide"  ng-repeat="x in [].constructor(jurorCount) track by $index">
+                                            <div class="col-5"><i class="overflowTxt-ellipsis">Jury #{{$index+1}} &#58;</i></div>
+                                            <div class="col-7"><span class="text-white overflowTxt-ellipsis">{{payoutDetails.witnessJuryAmount/witnessJururCount}}</span></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-5"><i class="overflowTxt-ellipsis">Host &#58;</i></div>
+                                            <div class="col-7"><span class="text-white overflowTxt-ellipsis" ng-click="resolveTxHash &&  openTransaction(resolveTxHash)">{{(payoutDetails.hostAmount && challengeStatus.event == 'Resolve') ? payoutDetails.hostAmount : 'N/A'}}</span></div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col-5"><i class="overflowTxt-ellipsis">Winner &#58;</i></div>
+                                            <div class="col-7"><span class="text-white overflowTxt-ellipsis" ng-click="resolveTxHash &&  openTransaction(resolveTxHash)">{{(payoutDetails.winnerAmount && challengeStatus.event == 'Resolve') ? payoutDetails.winnerAmount : 'N/A'}}</span></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-7 col-challengeStatusRight">
+                            <div class="box-challengeStatusRight">
+                                <div class="box-challengeStatusRightInn">
+                                    <figure class="box-gameChallengeStatusImg" style="background-image:url('assets/images/icon-dota2.png');"></figure>
+                                    <ul class="list-createChallenger">
+                                        <li>
+                                            <div class="box-createChallenger">
+                                                <figure class="box-createChallengerImg" style="background-image:url('{{(challengeStatus.profileImageKey1) ? challengeStatus.profileImageKey1 : 'assets/images/img-oponent.jpg'}}');"></figure>
+                                                <a class="link-whiteBlue overflowTxt-ellipsis" ng-click="showOtherUserModal(challengeStatus.key1)" class="text-createChallenger">{{challengeStatus.key1}}</a>
+                                            </div>
+                                        </li>
+                                        <li>
+                                            <div class="box-createChallenger box-createChallengerRight">
+                                                <figure class="box-createChallengerImg" style="background-image:url('{{(challengeStatus.profileImageKey2) ? challengeStatus.profileImageKey2 : 'assets/images/img-oponent.jpg'}}');"></figure>
+                                                <a class="link-whiteBlue overflowTxt-ellipsis" ng-click="(challengeStatus.key2) ? showOtherUserModal(challengeStatus.key2) : ''" >{{(challengeStatus.key2) ? challengeStatus.key2 : '??'}}</a>
+                                            </div>
+                                        </li>
+                                    </ul>
+                                    <div class="box-payDecideAmount">
+                                        <span>Amount: {{challengeStatus.amount}}</span>
+                                        <!-- <input type="text" title="" name=""> -->
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="box-midSecInn">
+                <div class="box-games">
+                    <h4>Event log</h4>
+                    <div class="table-main table-game table-common">
+                        <div class="row table-header">
+                            <div class="col-4">Status</div>
+                            <div class="col-4">User</div>
+                            <div class="col-4">Time</div>
+                        </div>
+                        <div class="table-body box-scroll eventScroll">
+                            <div ng-repeat="event in eventLogs">
+                                <div class="row" ng-if="event.event == 'NewChallenge'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(event.transactionHash)">Challenge Created</a></i></div>
+                                    <div class="col-4"><a ng-click="showOtherUserModal(event.arguments.key1)" class="link-blueTxtoverflowTxt-ellipsis">{{event.arguments.key1}}</a></div>
+                                    <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'Fund'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(event.transactionHash)">Challenge Funded</a></i></div>
+                                    <div class="col-4"><a ng-click="showOtherUserModal(eventLogs[$index-1].arguments.key1)" class="link-blueTxtoverflowTxt-ellipsis">{{eventLogs[$index-1].arguments.key1}}</a></div>
+                                    <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'Respond'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(event.transactionHash)">Challenge Accepted</a></i></div>
+                                    <div class="col-4"><a ng-click="showOtherUserModal(event.arguments.key2)"  class="link-blueTxtoverflowTxt-ellipsis">{{event.arguments.key2}}</a></div>
+                                    <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'awaitHost'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis">Awaiting host</a></i></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'SetWitnessJuryKey'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(event.transactionHash)">Lobby Created</a></i></div>
+                                    <div class="col-4"><a class="link-blueTxtoverflowTxt-ellipsis">{{eventLogs[$index-1].arguments.hostKey}}</a></div>
+                                    <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'gameOngoing'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis">Game ongoing</a></i></div>
+                                    <div class="col-4"><a ng-click="showOtherUserModal(userKey1)" class="link-blueTxtoverflowTxt-ellipsis">{{userKey1}}</a> vs <a ng-click="showOtherUserModal(userKey2)" class="link-blueTxtoverflowTxt-ellipsis">{{userKey2}}</a> </div>
+                                    <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'awaitWitness'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis">Awaiting Witnesses</a></i></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div ng-if="event.event == 'Report' && eventLogs[$index-1] && eventLogs[$index-1].event != 'Report'" >
+                                        <div class="row" >
+                                            <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis"  ng-click="openTransaction(event.transactionHash)">Witness1 Responded</a></i></div>
+                                            <div class="col-4"><a ng-click="(witnessRespondedWinner == '1') ? showOtherUserModal(userKey1) : showOtherUserModal(userKey2)" class="link-blueTxtoverflowTxt-ellipsis">{{(witnessRespondedWinner == '1') ? userKey1 : userKey2}}</a></div>
+                                            <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                        </div>
+                                        <div class="row" ng-if="eventLogs[$index+1] && eventLogs[$index+1].event == 'Report'">
+                                            <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(eventLogs[$index+1].transactionHash)">Witness2 Responded</a></i></div>
+                                            <div class="col-4"><a ng-click="(witnessRespondedWinner == '1') ? showOtherUserModal(userKey1) : showOtherUserModal(userKey2)" class="link-blueTxtoverflowTxt-ellipsis">
+                                            {{(witnessRespondedWinner == '1') ? userKey1 : userKey2}}
+                                        </a></div>
+                                            <div class="col-4">{{eventLogs[$index+1].date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                        </div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'winnerDetermine'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis">Winner Determined</a></i></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                                <div ng-if="event.event == 'JuryNeeded'">
+                                    <div class="row">
+                                        <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis"   ng-click="openTransaction(event.transactionHash)">Jury Requested</a></i></div>
+                                        <div class="col-4"><a class="link-blueTxtoverflowTxt-ellipsis"></a></div>
+                                        <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                    </div>
+                                </div>
+                                <div ng-if="event.event == 'JuryVote' && (eventLogs[$index-1] && eventLogs[$index-1].event != 'JuryVote') || event.event == 'JuryVote' && ( eventLogs[$index-2] && eventLogs[$index-2].event == 'JuryVote')" >
+                                        <div class="row">
+                                            <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis"   ng-click="openTransaction(event.transactionHash)">Jury{{ (eventLogs[$index-2] && eventLogs[$index-2].event == 'JuryVote') ? 3 : 1}} Voted</a></i></div>
+                                            <div class="col-4"><a ng-click="(witnessRespondedWinner == '1' && event.arguments.vote == true) ? showOtherUserModal(userKey1) : (witnessRespondedWinner == '1' && event.arguments.vote == false) ? showOtherUserModal(userKey2) : (witnessRespondedWinner == '2' && event.arguments.vote == true) ? showOtherUserModal(userKey2) : showOtherUserModal(userKey1)" class="link-blueTxtoverflowTxt-ellipsis">
+
+                                            {{(witnessRespondedWinner == '1' && event.arguments.vote == true) ? userKey1 : (witnessRespondedWinner == '1' && event.arguments.vote == false) ? userKey2 : (witnessRespondedWinner == '2' && event.arguments.vote == true) ? userKey2 : userKey1}}
+
+
+                                        </a></div>
+                                            <div class="col-4">{{event.date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                        </div>
+                                        <div class="row" ng-if="eventLogs[$index+1] && eventLogs[$index+1].event == 'JuryVote'">
+                                            <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis"  ng-click="openTransaction(eventLogs[$index+1].transactionHash)">Jury2 Voted</a></i></div>
+                                            <div class="col-4"><a ng-click="(witnessRespondedWinner == '1' && eventLogs[$index+1].arguments.vote == true) ? showOtherUserModal(userKey1) : (witnessRespondedWinner == '1' && eventLogs[$index+1].arguments.vote == false) ? showOtherUserModal(userKey2) : (witnessRespondedWinner == '2' && eventLogs[$index+1].arguments.vote == true) ? showOtherUserModal(userKey2) : showOtherUserModal(userKey1)" class="link-blueTxtoverflowTxt-ellipsis">{{(witnessRespondedWinner == '1' && eventLogs[$index+1].arguments.vote == true) ? userKey1 : (witnessRespondedWinner == '1' && eventLogs[$index+1].arguments.vote == false) ? userKey2 : (witnessRespondedWinner == '2' && eventLogs[$index+1].arguments.vote == true) ? userKey2 : userKey1}}
+
+
+                                            </a></div>
+                                            <div class="col-4">{{eventLogs[$index+1].date | date : 'MM/dd/yyyy - h:mm a' }}</div>
+                                        </div>
+                                </div>
+                                <div class="row" ng-if="event.event == 'WitnessJuryResolve'">
+                                    <div class="col-4"><i class="overflowTxt-ellipsis"><a class="link-whiteBlue overflowTxt-ellipsis" ng-click="openTransaction(event.transactionHash)">Game Finished</a></i></div>
+                                    <div class="col-4"></div>
+                                    <div class="col-4"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+        <aside id="box-rightSec">
+            <div class="box-findMatchSec box-requestJuryMain box-challengeOpenClose">
+                <ul class="list-findMatch">
+                    <li>
+                        <a class="link-navBlueButton" ng-click="openlink('https://github.com/Firstbloodio/dapp')"><span class="icon-info">Need Help</span></a>
+                        <a class="link-borderShow" ng-click="openlink('http://firstblood.io/')">Launch firstblood online</a>
+                        <a class="link-borderShow" ng-click="openlink('https://store.steampowered.com')">Launch steam</a>
+                        <a class="link-borderShow" ng-click="openMetamask('open-metamask-popup')">Open Metamask</a>
+                    </li>
+                    <li >
+                        <div class="box-requestJury" ng-if="currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2">
+                            <div class="row font-small">
+                                <div class="col-7">Challenge initiated</div>
+                                <div class="col-5"><span class="text-white">{{challengeBlock.challenge_block}}</span></div>
+                            </div>
+                            <div class="row font-small">
+                                <div class="col-7">Current block</div>
+                                <div class="col-5"><span class="text-white">{{challengeBlock.current_block}}</span></div>
+                            </div>
+                            <div class="row font-medium">
+                                <div class="col-7">Elapsed blocks</div>
+                                <div class="col-5"><span class="text-white">{{challengeBlock.elapsed}}</span></div>
+                            </div>
+                        </div>
+
+                        <a class="link-borderShow" ng-click="rescue()" title="" ng-if="(currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2 ) && challengeBlock.elapsed > (blockPeriod*10) && (challengeBlock.witnessJuryKey == '' || challengeBlock.witnessJuryKey == null) && challengeStatus.event != 'Rescued'">Rescue funds</a>
+
+                        <!-- <a class="link-borderShow" ng-click="rescue()" title="" ng-if="(currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2 ) && challengeBlock.elapsed < 6000 && (challengeBlock.witnessJuryKey == '' || challengeBlock.witnessJuryKey == null) && challengeStatus.event != 'Rescued'">Rescue funds</a> -->
+
+                        <a class="link-borderShow" ng-if="payoutFlag && challengeStatus.event != 'Resolve'"  ng-click="payout()">Payout funds</a>
+                        <div class="box-requestJury box-requestJuryRemaining" ng-if="currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2">
+                            <div class="row font-medium">
+                                <div class="col-7"><span class="link-blueTxt">Remaining</span></div>
+                                <div class="col-5"><span class="text-white">{{ ( (6000 - challengeBlock.elapsed ) > 0 ) ? 6000 - challengeBlock.elapsed : 0  }}</span></div>
+                            </div>
+                        </div>
+                        <a class="link-blueButton" ng-if="(currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2) && challengeBlock.gotWinner && !alreadyJuryNeeded && challengeBlock.elapsed < 6000" ng-click="requestJury()" title="">Request Jury</a>
+                        <!-- <a class="link-blueButton" ng-if="(currentUser.userLoginDetails.playerName == challengeStatus.key1 || currentUser.userLoginDetails.playerName == challengeStatus.key2) && challengeBlock.elapsed > 6000 && challengeBlock.gotWinner" ng-click="requestJury()" title="">Request Jury</a> -->
+                    </li>
+                </ul>
+                <div class="box-myJobs box-juryVote" ng-if="(canJuryVote && jurorCount < 3) || alreadyVotedData.requestNum">
+                    <h5>Jury vote</h5>
+                    <div class="box-juryVoteInn">
+                        <h4>Do you agree with the original decision?</h4>
+                        <ul class="list-decision">
+                            <li>
+                                <button class="btn btn-voteYes" type="button" ng-click="juryVote(true)" ng-disabled="alreadyVotedData.requestNum" ng-class="{'btn-voted':  alreadyVotedData.vote == 'true'}"></button>
+                            </li>
+                            <li>
+                                <button class="btn btn-voteNo" type="button" ng-click="juryVote(false)" ng-disabled="alreadyVotedData.requestNum" ng-class="{'btn-voted':  alreadyVotedData.vote == 'false' || alreadyVotedData.vote == null || alreadyVotedData.vote == ''}"></button>
+                            </li>
+                        </ul>
+                        <button class="btn btn-review" type="button">Review Match</button>
+                    </div>
+                </div>
+                <div class="box-myJobs" ng-if="currentUser.userDetails.isWitness && !canJuryVote">
+                    <h5>My Jobs</h5>
+                    <div class="table-main table-myJobs">
+                        <div class="row table-header">
+                            <div class="table-headerInn">
+                                <div class="col-7">Status</div>
+                                <div class="col-5">Job</div>
+                            </div>
+                        </div>
+                        <div class="table-body table-myJobsBody box-scroll my_jobs_scroll">
+                            <div class="box-noRecordFound" ng-if="accountStatus.length < 1 "> {{CONSTANTS.noRecordFound}}</div>
+                            <div ng-repeat="status in accountStatus" class="row" ng-class="{'row-pending' : (status.status == 'Pending') || (status.status == 'In Progress'), 'row-complete': status.status == 'Finished'}">
+                                <div class="col-7" ng-click="jobSatatus(status.address)"  ng-if="status.status == 'Pending'"><a >Pending</a></div>
+                                <div class="col-7" ng-click="jobSatatus(status.address)" ng-if="status.status == 'In Progress'"><a >Finished</a></div>
+                                <div class="col-7" ng-click="jobSatatus(status.address)" ng-if="status.status == 'Finished'"><a >Paid</a></div>
+                                <div class="col-5"><a>{{status.job}}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </aside>
+    </section>
+    <footer class="box-footer"></footer>
+</article>
