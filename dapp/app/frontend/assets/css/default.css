@@ -43,7 +43,7 @@ img{ max-width:100%; }
 
 .icon-info{ padding-left:26px; background:url("../images/icon-info.png") no-repeat left center; }
 /* Login page start */
-.box-login{ height:100%; display:flex; justify-content:center; align-items:center; color:#FFF; }
+.box-login{ height:100%; overflow-y: scroll; display:flex; justify-content:center; color:#FFF; }
 #login-form{ max-width:650px; padding:40px; border-radius:8px; background-color:rgba(255,255,255,0.05); }
 #logo-login{ display:block; margin:auto auto 24px; }
 .input-mainGroup{ padding-bottom:20px; }

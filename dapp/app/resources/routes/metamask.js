@@ -9,14 +9,14 @@ const ethUtil = require('ethereumjs-util');
 const Tx = require('ethereumjs-tx');
 const async = require('async');
 const BigNumber = require('bignumber.js');
-const Client = require('node-rest-client').Client; 
+const Client = require('node-rest-client').Client;
 const client = new Client();
 const sqlite3 = require('sqlite3').verbose();
 var db = "";
 var isWin = process.platform === "win32";
 
 if(isWin){
-    db = new sqlite3.Database('firstblood.db');    
+    db = new sqlite3.Database('firstblood.db');
 }else{
     db = new sqlite3.Database(process.env.HOME+'/firstblood.db');
 }
@@ -41,11 +41,11 @@ const contracts = {
   }
 };
 
-router.get('/', function(req, res, next) { 
+router.get('/', function(req, res, next) {
   res.send("ok");
 });
 
-router.post('/createHost', function(req, res, next) {    
+router.post('/createHost', function(req, res, next) {
     const challengeAddr = req.body.challengeAddr;
     const hostName = req.body.hostName;
     const user1 = req.body.user1;
@@ -109,16 +109,16 @@ const steamConnect = async(witness_name, steam_password) => {
                 account_name: witness_name,
                 password: steam_password
             });
-        });          
+        });
         console.log('steamClient.loggedOn', steamClient.loggedOn);
         const onSteamError = function onSteamError() {
             console.log('Steam error');
             resolve(false);
-        };          
+        };
         if(steamClient.loggedOn == undefined) {
           steamClient.on('logOnResponse', onSteamLogOn);
         } else {
-            resolve(false);          
+            resolve(false);
         }
         steamClient.on('error', onSteamError);
       } catch(e) {
@@ -129,12 +129,12 @@ const steamConnect = async(witness_name, steam_password) => {
 };
 
 const createHost = async(challengeAddr, hostName, user1, user2, witness_name, steam_password, accountAddress, pk) => {
-    try {      
+    try {
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const user1SteamId = await getsteamID64(user1);
-        const user2SteamId = await getsteamID64(user2);         
+        const user2SteamId = await getsteamID64(user2);
         const addressNonce = await getNonce(accountAddress);
         const hostTxHash = await sendData('Challenge', challengeAddr, 'host', [hostName], value, gasLimit, gasPrice, pk, addressNonce);
         //const hostTxHash = await sendData('Challenge', challengeAddr, 'host', [hostName], value, pk, addressNonce);
@@ -177,8 +177,8 @@ const setWitnessJuryKey = async(challengeAddr, match_id, accountAddress, pk) => 
       console.log('match_id',match_id);
       console.log('accountAddress',accountAddress);
       const value = 0;
-      const gasLimit = 7000000;
-      const gasPrice = "4000000000";
+      const gasLimit = 400000;
+      const gasPrice = "10000000000";
       const addressNonce = await getNonce(accountAddress);
       //const setTxHash = await sendData('Challenge', challengeAddr, 'setWitnessJuryKey', [match_id], value, pk, addressNonce);
       const setTxHash = await sendData('Challenge', challengeAddr, 'setWitnessJuryKey', [match_id], value, gasLimit, gasPrice, pk, addressNonce);
@@ -216,10 +216,10 @@ function sendData(contractType, contractAddr, fn, args, value, gasLimit, gasPric
         gasPrice = result.toNumber();
         const abi = JSON.parse(CompiledContracts[contractType].interface);
         const contract = web3.eth.contract(abi).at(contractAddr);
-        const data = `${contract[fn].getData.apply(null, args)}`;   
+        const data = `${contract[fn].getData.apply(null, args)}`;
 
         /*var result1 = await web3.eth.estimateGas({
-          to: contractAddr, 
+          to: contractAddr,
           data: data
         });
         gasLimit = parseInt(result1*30/100) + result1;
@@ -344,7 +344,7 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
                 resolve('');
               }
             }, 60 * 1000);
- 
+
             var checkTeamInterval;
             var isChatJoin = false;
             var canLunch = true;
@@ -374,7 +374,7 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
                   },100);
 
                 },100);
-                
+
               }
 
               if(lobby) {
@@ -384,12 +384,12 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
                   Dota2.sendMessage(user2Name+ ': Join Dire', "Lobby_"+lobby.lobby_id, 3);
                   setTimeout(()=>{
                   isChatJoin = true
-                    Dota2.practiceLobbyKickFromTeam(Dota2.ToAccountID(lobby.members[0].id.toString()));                    
+                    Dota2.practiceLobbyKickFromTeam(Dota2.ToAccountID(lobby.members[0].id.toString()));
                   },200);
 
                 },1000);
-                
-              }          
+
+              }
               Dota2.on('chatJoin', function(channel, joinerName, joinerSteamId) {
                 console.log('-------------channel', channel);
                 console.log('-------------joinerName', joinerName);
@@ -403,7 +403,7 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
                 Dota2.exit();
                 resolve(lobby.match_id.toNumber());
 
-              }           
+              }
             });
           }
         })
@@ -411,7 +411,7 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
       } else {
         resolve('')
       }
-    }  
+    }
 
     steamClient.connect();
     steamClient.on('connected', function() {
@@ -427,7 +427,7 @@ function createLobby(account_name, account_password, user1SteamId, user2SteamId,
 
     steamClient.on('logOnResponse', onSteamLogOn);
     steamClient.on('error', onSteamError);
-    
+
   });
 }
 
@@ -449,7 +449,7 @@ router.post('/deposit_amount', function(req, res, next) {
     }).catch(function(e) {
       console.log('transactionApprove : error ->', e);
       responseHandler.send(req, res, 'error', 500, null, e);
-    });    
+    });
   }else{
     responseHandler.send(req, res, 'error', 400, null, "Invalid required parameters.");
   }
@@ -459,7 +459,7 @@ router.post('/withdraw_amount', function(req, res, next) {
   const amount = req.body.amount;
   const ethereumPrivateKey = req.body.pk;
   var accountAddress = ethUtil.privateToAddress(Buffer.from(ethereumPrivateKey, 'hex')).toString("hex");
-  accountAddress = '0x'+accountAddress;    
+  accountAddress = '0x'+accountAddress;
   Promise.resolve(transactionAmount(amount, ethereumPrivateKey, accountAddress, 'withdraw')).then(function(result) {
     responseHandler.send(req, res, 'success', 200, result, null);
   }).catch(function(e) {
@@ -476,8 +476,8 @@ const transactionApprove = async(amount, ethereumPrivateKey, accountAddress ) =>
         const contractAddr = contracts['WitnessJury'].address;
         amount = toWei(amount);
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const pk = ethereumPrivateKey;
         const referrer = '0x0';
         const addressNonce = await getNonce(accountAddress);
@@ -554,8 +554,8 @@ const voteJury = async(challengeAddr,  requestNumber, juryResult, accountAddress
     try {
       console.log('requestNumber', requestNumber, typeof requestNumber, 'juryResult' , juryResult, typeof juryResult);
       const value = 0;
-      const gasLimit = 7000000;
-      const gasPrice = "4000000000";
+      const gasLimit = 400000;
+      const gasPrice = "10000000000";
       const addressNonce = await getNonce(accountAddress);
       //const setTxHash = await sendData('WitnessJury', challengeAddr, 'juryVote', [requestNumber, juryResult], value, pk, addressNonce);
       const setTxHash = await sendData('WitnessJury', challengeAddr, 'juryVote', [requestNumber, juryResult], value, gasLimit, gasPrice, pk, addressNonce);
