@@ -327,7 +327,7 @@ a:not([href]):not([tabindex]), a:not([href]):not([tabindex]):focus, a:not([href]
 .txt-disclaimer {
   margin-top: 15px;
   margin-bottom: 15px;
-  height: 250px;
+  height: 200px;
   overflow-y: scroll;
 }
 
