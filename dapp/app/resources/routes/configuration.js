@@ -90,8 +90,8 @@ const respond = async() => {
         };
         const amountToFund = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
         const addressNonce = await getNonce(selectedAccount.address);
@@ -142,8 +142,8 @@ const approve2 = async() => {
         };
         const amountToFund = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
         const addressNonce = await getNonce(selectedAccount.address);
@@ -191,7 +191,7 @@ const fund = async() => {
         };
         const amountToFund = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
+        const gasLimit = 400000;
         const gasPrice = "40000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
@@ -238,7 +238,7 @@ const approveChallnge = async() => {
         };
         const amountToFund = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
+        const gasLimit = 400000;
         const gasPrice = "40000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
@@ -288,7 +288,7 @@ const deployChallnge = async() => {
         };
         const amountToFund = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
+        const gasLimit = 400000;
         const gasPrice = "40000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
@@ -344,8 +344,8 @@ const createtoken = async() => {
         };
         const amountToCreate = toWei(1);
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const pk = selectedAccount.privateKey;
         const referrer = '0x0';
         const addressNonce = await getNonce(selectedAccount.address);
@@ -371,8 +371,8 @@ const report = async() => {
     try {
 
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
 
         const pk =  "510F8855A244D218987A0A6ABBE3BB431D8257CEC8E36A2905F29EF3C5E905E3";
         const witnessAccountAddress = ethUtil.privateToAddress(Buffer.from(pk, 'hex')).toString("hex");

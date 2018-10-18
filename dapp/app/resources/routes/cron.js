@@ -1602,8 +1602,8 @@ async function getMyJobs(ethereumPrivateKey) {
 async function reportMyJob(contractType, contractAddr, fn, witnessJuryRequestNum, witnessAccountAddress, match_id, pk, needToSteamConnect, witnessName, steamPassword) {
     try {
         const value = 0;
-        const gasLimit = 7000000;
-        const gasPrice = "4000000000";
+        const gasLimit = 400000;
+        const gasPrice = "10000000000";
         const addressNonce = await getNonce(witnessAccountAddress);
         const match_data = await getMatchDetails(match_id, needToSteamConnect, witnessName, steamPassword);
         if (match_data && (match_data.match_outcome == 2 || match_data.match_outcome == 3)) {
