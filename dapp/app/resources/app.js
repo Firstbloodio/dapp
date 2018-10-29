@@ -9,6 +9,7 @@ const router = express.Router();
 const app = express();
 const tables = require('./routes/tables');
 const constant = require('./routes/constant.js');
+const morgan = require('morgan');
 require('dotenv').config()
 
 app.use(express.json());
@@ -26,6 +27,8 @@ var allowCrossDomain = function(req, res, next) {
 }
 app.use(allowCrossDomain);
 app.disable('etag');
+
+app.use(morgan(':method :url :status :res[content-length] - :response-time ms'));
 
 const configRouter = require('./routes/configuration');
 const infuraRouter = require('./routes/infura');

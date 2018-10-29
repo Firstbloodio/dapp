@@ -1,8 +1,8 @@
 {
   "name": "FirstBlood",
-  "version": "1.0.0",
+  "version": "1.0.2",
   "main": "main.js",
-  "license": "GPL-3.0",
+  "license": "MIT",
   "private": true,
   "productName": "FirstBlood",
   "description": "FirstBlood",
