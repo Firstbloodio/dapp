@@ -35,11 +35,12 @@ After setup, run `npm run build.mac`
 ## Database location
 
  * On Windows, `C:\Users\[USERNAME]\AppData\Local\Programs\FirstBlood\resources\app\firstblood.db`
+ * On Mac, `/Users/[USERNAME]/firstblood.db`
 
 ## Log file location
 
  * On Windows, `C:\Users\[USERNAME]\.pm2\logs`
- * On Linux, `/Users/[USERNAME]/.pm2/logs`
+ * On Mac, `/Users/[USERNAME]/.pm2/logs`
 
 ## Server Info
 
