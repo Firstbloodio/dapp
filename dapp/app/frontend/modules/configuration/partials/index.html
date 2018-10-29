@@ -82,7 +82,7 @@
           jQuery(($) => {
             const element = $('.txt-disclaimer')[0];
             element.onscroll = () => {
-              if(element.scrollTop + element.clientHeight == element.scrollHeight) {
+              if(element.scrollTop + element.clientHeight >= element.scrollHeight) {
                 $('.txt-disclaimer-explanation').hide();
                 $('.txt-agreed').show();
               }

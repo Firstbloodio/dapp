@@ -4,7 +4,7 @@
   "private": true,
   "scripts": {
     "start": "node ./bin/www",
-    "postinstall": "npm rebuild sqlite3 --target=5.0.0 && npm rebuild sqlite3 --target=6.0.0 && npm rebuild sqlite3 --target=7.0.0 && npm rebuild sqlite3 --target=8.0.0 && npm rebuild sqlite3 --target=9.0.0 && npm rebuild sqlite3 --target=10.0.0"
+    "postinstall": "npm rebuild sqlite3 --target=5.0.0 && npm rebuild sqlite3 --target=6.0.0 && npm rebuild sqlite3 --target=7.0.0 && npm rebuild sqlite3 --target=8.0.0 && npm rebuild sqlite3 --target=9.0.0 && npm rebuild sqlite3 --target=10.0.0 && npm rebuild sqlite3 --target=5.0.0 --target_platform=win32 && npm rebuild sqlite3 --target=6.0.0 --target_platform=win32 && npm rebuild sqlite3 --target=7.0.0 --target_platform=win32 && npm rebuild sqlite3 --target=8.0.0 --target_platform=win32 && npm rebuild sqlite3 --target=9.0.0 && npm rebuild sqlite3 --target=10.0.0 --target_platform=win32"
   },
   "dependencies": {
     "async": "^2.6.1",

@@ -1,6 +1,6 @@
 # FirstBlood Dapp Installation Guide
 
-This project was generated with Node JS, Electron Framework & Angular JS.
+This project was generated with Node JS, Electron Framework & Angular JS. This guide explains how to build the project from source.
 
 ## Constants
 
@@ -18,15 +18,28 @@ This project was generated with Node JS, Electron Framework & Angular JS.
 * Run `npm install` in root directory
 * Run `npm install` in `app/resources` directory
 * Run `bower install` in `app/frontend` directory
-* For Launch application in local system without build, Run `npm start`
+* To launch application in local system without build, Run `npm start`
+
+## Version number
+
+Update the version number in `app/frontend/modules/common/views/left_side_menu.html` and `package.json`
 
 ## Create build for Windows
 
-After setup Run `npm run build.win`
+After setup, run `npm run build.win`
 
 ## Create build for Mac
 
-After setup Run `npm run build.mac`
+After setup, run `npm run build.mac`
+
+## Database location
+
+ * On Windows, `C:\Users\[USERNAME]\AppData\Local\Programs\FirstBlood\resources\app\firstblood.db`
+
+## Log file location
+
+ * On Windows, `C:\Users\[USERNAME]\.pm2\logs`
+ * On Linux, `/Users/[USERNAME]/.pm2/logs`
 
 ## Server Info
 
