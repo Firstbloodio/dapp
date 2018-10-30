@@ -15,6 +15,12 @@ const sqlite3 = require('sqlite3').verbose();
 var db = "";
 var isWin = process.platform === "win32";
 
+try {
+  steam.servers = JSON.parse(fs.readFileSync(`${process.cwd()}/servers.json`));
+} catch (err) {
+  console.log(`Error reading servers.json: ${err}`);
+}
+
 if(isWin){
     db = new sqlite3.Database('firstblood.db');
 }else{

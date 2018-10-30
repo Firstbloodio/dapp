@@ -17,6 +17,12 @@ const sqlite3 = require('sqlite3').verbose();
 var db = "";
 var isWin = process.platform === "win32";
 
+try {
+  Steam.servers = JSON.parse(fs.readFileSync(`${process.cwd()}/servers.json`));
+} catch (err) {
+  console.log(`Error reading servers.json: ${err}`);
+}
+
 if(isWin){
     db = new sqlite3.Database('firstblood.db');
 }else{
@@ -132,7 +138,9 @@ router.post('/login', [
             return new Promise((resolve, reject) => {
                 validateName(value, req, 'player').then(result => {
                     if (!result) {
-                        reject("There's no such player username available.");
+                        const err = "There's no such player username available.";
+                        console.log(err);
+                        reject(err);
                     } else {
                         resolve(true);
                     }
@@ -151,7 +159,9 @@ router.post('/login', [
             return new Promise((resolve, reject) => {
                 validateAddress(value).then(result => {
                     if (!result) {
-                        reject("Referrer Ethereum Address is invalid.");
+                        const err = "Referrer Ethereum Address is invalid.";
+                        console.log(err);
+                        reject(err);
                     } else {
                         resolve(true);
                     }
@@ -170,7 +180,9 @@ router.post('/login', [
             return new Promise((resolve, reject) => {
                 validateKey(value).then(result => {
                     if (!result) {
-                        reject('Ethereum Private Key is invalid.');
+                        const err = 'Ethereum Private Key is invalid.';
+                        console.log(err);
+                        reject(err);
                     } else {
                         resolve(true);
                     }
@@ -189,7 +201,9 @@ router.post('/login', [
             return new Promise((resolve, reject) => {
                 validateName(value, req, 'witness').then(result => {
                     if (!result) {
-                        reject("There's no such witness username available.");
+                        const err = "There's no such witness username available.";
+                        console.log(err);
+                        reject(err);
                     } else {
                         resolve(true);
                     }
@@ -208,7 +222,9 @@ router.post('/login', [
             return new Promise((resolve, reject) => {
                 validateWitness(value, req.body.steamPassword).then(result => {
                     if (result != 1) {
-                        reject("There's no Steam User associated with the provided detail.");
+                        const err = "There's no Steam User associated with the provided detail.";
+                        console.log(err);
+                        reject(err);
                     } else {
                         resolve(true);
                     }
@@ -308,6 +324,7 @@ function validateName(userName, req, type) {
  */
 function validateWitness(witnessName, steamPassword) {
     return new Promise((resolve, reject) => {
+        console.log(`Attempting to login to Steam: ${witnessName}`);
         var steamClient = new Steam.SteamClient();
         var steamUser = new Steam.SteamUser(steamClient);
         steamClient.connect();
@@ -325,7 +342,8 @@ function validateWitness(witnessName, steamPassword) {
             }
         });
 
-        steamClient.on('error', function onSteamError() {
+        steamClient.on('error', function onSteamError(err) {
+            console.log(`Steam login error: ${err}`);
             resolve(false);
         });
 
