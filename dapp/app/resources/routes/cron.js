@@ -18,8 +18,15 @@ const contracts = require('../assets/files/compiled.json').contracts;
 const Tx = require('ethereumjs-tx');
 const notifier = require('node-notifier');
 const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 var db = "";
 var isWin = process.platform === "win32";
+
+try {
+  Steam.servers = JSON.parse(fs.readFileSync(`${process.cwd()}/servers.json`));
+} catch (err) {
+  console.log(`Error reading servers.json: ${err}`);
+}
 
 if(isWin){
     db = new sqlite3.Database('firstblood.db');

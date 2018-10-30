@@ -25,6 +25,7 @@
     "morgan": "^1.9.1",
     "node-rest-client": "^3.1.0",
     "rebuild": "^0.1.2",
+    "request": "^2.88.0",
     "request-promise": "^4.2.2",
     "solc": "^0.4.24",
     "sqlite3": "^4.0.2",
